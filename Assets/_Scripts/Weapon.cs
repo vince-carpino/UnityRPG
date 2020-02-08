@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Weapon : MonoBehaviour {
     private Vector3 LaunchVector;
+    private bool _CanFire = true;
 
     public Projectile Projectile;
     public float ProjectileSpeed;
-    public float Cooldown;
+    public float CooldownTime = 3f;
     public Transform FirePoint;
-    public float LaunchAngle;
 
     void Start() {
         FirePoint = transform;
@@ -17,7 +18,18 @@ public class Weapon : MonoBehaviour {
     }
 
     public void Fire() {
+        _CanFire = false;
         var newProjectile = Instantiate(Projectile, FirePoint.position, FirePoint.rotation);
         newProjectile.Rigidbody.AddForce(transform.forward * ProjectileSpeed);
+        StartCoroutine(Cooldown());
+    }
+
+    IEnumerator Cooldown() {
+        yield return new WaitForSeconds(CooldownTime);
+        _CanFire = true;
+    }
+
+    public bool CanFire() {
+        return _CanFire;
     }
 }

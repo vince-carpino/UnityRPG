@@ -3,12 +3,8 @@
 public class PlayerController : MonoBehaviour {
     public Weapon Weapon;
 
-    void Start() {
-        
-    }
-
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && Weapon.CanFire()) {
             Weapon.Fire();
         }
     }

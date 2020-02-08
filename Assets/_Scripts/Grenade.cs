@@ -3,10 +3,6 @@
 public class Grenade : MonoBehaviour {
     public float Lifetime;
 
-    void Start() {
-        
-    }
-
     void Update() {
         Destroy(gameObject, Lifetime);
     }
