@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour {
             return;
         }
 
-        Destroy(gameObject);
+        TakeDamage(col.gameObject.GetComponent<Grenade>().Damage);
     }
 
     public void TakeDamage(float damage) {
