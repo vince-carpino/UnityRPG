@@ -4,19 +4,24 @@ using UnityEngine;
 public class Weapon : MonoBehaviour {
     private bool _CanFire = true;
     private float _Timer;
-    private GameManager GM;
+    private Rigidbody _RB;
+    private GameManager _GM;
+    private UIController _UI;
 
     public GameObject ProjectilePrefab;
     public float LaunchSpeed;
     public float CooldownTime = 3f;
     public Transform FirePoint;
-    private Rigidbody RB;
 
     void Start() {
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        GM.TimerText.text = string.Format("{0:0.0} s", CooldownTime);
+        _Timer = CooldownTime;
+        _RB = gameObject.transform.parent.GetComponent<Rigidbody>();
+        _GM = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        _UI = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIController>();
         FirePoint = transform;
-        RB = gameObject.transform.parent.GetComponent<Rigidbody>();
+
+        string text = ((_Timer / CooldownTime) * 100).ToString();
+        _UI.SetWeaponCooldownText(text);
     }
 
     void FixedUpdate() {
@@ -24,21 +29,23 @@ public class Weapon : MonoBehaviour {
             return;
         }
 
-        _Timer -= Time.deltaTime;
+        _Timer += Time.deltaTime;
 
-        if (_Timer <= 0f) { 
+        if (_Timer >= CooldownTime) { 
             _Timer = CooldownTime;
+            _CanFire = true;
         }
 
-        GM.TimerText.text = string.Format("{0:0.0} s", _Timer);
+        string text = Mathf.Ceil((_Timer / CooldownTime) * 100).ToString();
+        _UI.SetWeaponCooldownText(text);
     }
 
     public void Fire() {
         _CanFire = false;
-        _Timer = CooldownTime;
+        _Timer = 0f;
         GameObject newProjectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
-        newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + RB.velocity, ForceMode.Impulse);
-        StartCoroutine(Cooldown());
+        newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + _RB.velocity, ForceMode.Impulse);
+        // StartCoroutine(Cooldown());
     }
 
     IEnumerator Cooldown() {
