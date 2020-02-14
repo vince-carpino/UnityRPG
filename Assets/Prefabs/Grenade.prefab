@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 6267866661273568204}
-  DamageRadius: 2
 --- !u!114 &114428627952231662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf4f5b117349439ead267d2400eb50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lifetime: 5
+  MinDelay: 0
+  MaxDelay: 5
   DamageRadius: 5
   Damage: 100

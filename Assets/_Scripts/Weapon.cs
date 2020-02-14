@@ -6,18 +6,20 @@ public class Weapon : MonoBehaviour {
     private bool _CanFire = true;
 
     public GameObject ProjectilePrefab;
-    public float ProjectileSpeed;
+    public float LaunchSpeed;
     public float CooldownTime = 3f;
     public Transform FirePoint;
+    private Rigidbody RB;
 
     void Start() {
         FirePoint = transform;
+        RB = gameObject.transform.parent.GetComponent<Rigidbody>();
     }
 
     public void Fire() {
         _CanFire = false;
         GameObject newProjectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
-        newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * ProjectileSpeed, ForceMode.Impulse);
+        newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + RB.velocity, ForceMode.Impulse);
         StartCoroutine(Cooldown());
     }
 

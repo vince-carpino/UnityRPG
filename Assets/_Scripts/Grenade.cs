@@ -3,25 +3,28 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour {
     private GameObject ExplosionSphere;
+    private float CountdownTimer;
+    private bool IsFirstCollision = true;
 
-    public float Lifetime;
     public float DamageRadius;
     public float Damage;
+    public float MinCountdown;
+    public float MaxCountdown = 5f;
 
     void Start() {
-        Destroy(gameObject, Lifetime);
+        CountdownTimer = Random.Range(MinCountdown, MaxCountdown);
+        StartCoroutine(DetonateAfterTime(CountdownTimer));
+    }
+
+    void FixedUpdate() {
+
     }
 
     void OnCollisionEnter(Collision col) {
-        switch (col.gameObject.tag) {
-            case "Ground":
-                Detonate();
-                break;
-            case "Enemy":
-                Detonate();
-                break;
-            default:
-                break;
+        if (IsFirstCollision && col.gameObject.tag.Equals("Enemy")) {
+            Detonate();
+        } else {
+            IsFirstCollision = false;
         }
     }
 
@@ -35,6 +38,9 @@ public class Grenade : MonoBehaviour {
                 col.GetComponent<EnemyController>().TakeDamage(Damage);
             }
         }
+
+        Destroy(ExplosionSphere, 5f);
+        Destroy(gameObject, 5f);
     }
 
     void DrawExplosion() {
@@ -44,11 +50,10 @@ public class Grenade : MonoBehaviour {
         StartCoroutine(ScaleOverTime(0.15f));
     }
 
-    IEnumerator ExecuteAfterTime(float seconds) {
+    IEnumerator DetonateAfterTime(float seconds) {
         yield return new WaitForSeconds(seconds);
 
-        Destroy(ExplosionSphere);
-        Destroy(gameObject);
+        Detonate();
     }
 
     IEnumerator ScaleOverTime(float time) {

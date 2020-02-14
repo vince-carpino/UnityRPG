@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 87644735099138529, guid: 4c1c8530dca9f4d088f0a9b622ebfcf3,
     type: 3}
-  ProjectileSpeed: 8
+  LaunchSpeed: 100
   CooldownTime: 3
   FirePoint: {fileID: 6343138021833433298}
