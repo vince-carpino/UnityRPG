@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Weapon : MonoBehaviour {
     private bool _CanFire = true;
@@ -20,11 +19,19 @@ public class Weapon : MonoBehaviour {
         _UI = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIController>();
         FirePoint = transform;
 
-        string text = ((_Timer / CooldownTime) * 100).ToString();
+        string text = RechargeMath().ToString();
         _UI.SetWeaponCooldownText(text);
     }
 
     void FixedUpdate() {
+        RechargeLogic();
+    }
+
+    float RechargeMath() {
+        return Mathf.Ceil((_Timer / CooldownTime) * 100);
+    }
+
+    void RechargeLogic() {
         if (_CanFire) {
             return;
         }
@@ -36,7 +43,7 @@ public class Weapon : MonoBehaviour {
             _CanFire = true;
         }
 
-        string text = Mathf.Ceil((_Timer / CooldownTime) * 100).ToString();
+        string text = RechargeMath().ToString();
         _UI.SetWeaponCooldownText(text);
     }
 
@@ -45,12 +52,6 @@ public class Weapon : MonoBehaviour {
         _Timer = 0f;
         GameObject newProjectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
         newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + _RB.velocity, ForceMode.Impulse);
-        // StartCoroutine(Cooldown());
-    }
-
-    IEnumerator Cooldown() {
-        yield return new WaitForSeconds(CooldownTime);
-        _CanFire = true;
     }
 
     public bool CanFire() {
