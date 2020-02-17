@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
-    private string PercentFormatString = "{0:0}%";
+    private static string PercentFormatString = "{0:0}%";
 
     public Text WeaponCooldownText;
 

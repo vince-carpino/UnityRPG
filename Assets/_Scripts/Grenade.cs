@@ -8,20 +8,19 @@ public class Grenade : MonoBehaviour {
 
     public float DamageRadius;
     public float Damage;
-    public float MinCountdown;
+    public float MinCountdown = 0f;
     public float MaxCountdown = 5f;
+    public float DetonationDuration = 1f;
 
     void Start() {
         CountdownTimer = Random.Range(MinCountdown, MaxCountdown);
         StartCoroutine(DetonateAfterTime(CountdownTimer));
     }
 
-    void FixedUpdate() {
-
-    }
+    void FixedUpdate() { }
 
     void OnCollisionEnter(Collision col) {
-        if (IsFirstCollision && col.gameObject.tag.Equals("Enemy")) {
+        if (IsFirstCollision && col.gameObject.tag.Equals(GameManager.EnemyTag)) {
             Detonate();
         } else {
             IsFirstCollision = false;
@@ -29,25 +28,26 @@ public class Grenade : MonoBehaviour {
     }
 
     void Detonate() {
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
         DrawExplosion();
 
         Collider[] collisions = Physics.OverlapSphere(transform.position, DamageRadius);
 
         foreach (var col in collisions) {
-            if (col.gameObject.tag == "Enemy") {
+            if (col.gameObject.tag == GameManager.EnemyTag) {
                 col.GetComponent<EnemyController>().TakeDamage(Damage);
             }
         }
 
-        Destroy(ExplosionSphere, 5f);
-        Destroy(gameObject, 5f);
+        Destroy(ExplosionSphere, DetonationDuration + 0.5f);
+        Destroy(gameObject, DetonationDuration + 0.5f);
     }
 
     void DrawExplosion() {
         ExplosionSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         ExplosionSphere.GetComponent<Collider>().isTrigger = true;
         ExplosionSphere.transform.position = gameObject.transform.position;
-        StartCoroutine(ScaleOverTime(0.15f));
+        StartCoroutine(ScaleOverTime(DetonationDuration));
     }
 
     IEnumerator DetonateAfterTime(float seconds) {

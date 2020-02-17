@@ -4,19 +4,19 @@ public class Weapon : MonoBehaviour {
     private bool _CanFire = true;
     private float _Timer;
     private Rigidbody _RB;
-    private GameManager _GM;
     private UIController _UI;
 
     public GameObject ProjectilePrefab;
     public float LaunchSpeed;
     public float CooldownTime = 3f;
+    public float AimSpeed = 1f;
     public Transform FirePoint;
+    public float MinMaxAimDegrees = 45f;
 
     void Start() {
         _Timer = CooldownTime;
         _RB = gameObject.transform.parent.GetComponent<Rigidbody>();
-        _GM = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        _UI = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIController>();
+        _UI = GameManager.UIController;
         FirePoint = transform;
 
         string text = RechargeMath().ToString();
@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour {
 
         _Timer += Time.deltaTime;
 
-        if (_Timer >= CooldownTime) { 
+        if (_Timer >= CooldownTime) {
             _Timer = CooldownTime;
             _CanFire = true;
         }
