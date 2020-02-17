@@ -19,23 +19,23 @@ public class Weapon : MonoBehaviour {
         _UI = GameManager.UIController;
         FirePoint = transform;
 
-        string text = RechargeMath().ToString();
+        string text = GetRechargeValueAsString();
         _UI.SetWeaponCooldownText(text);
     }
 
     void FixedUpdate() {
-        RechargeLogic();
-    }
-
-    float RechargeMath() {
-        return Mathf.Ceil((_Timer / CooldownTime) * 100);
-    }
-
-    void RechargeLogic() {
         if (_CanFire) {
             return;
         }
 
+        Recharge();
+    }
+
+    string GetRechargeValueAsString() {
+        return Mathf.Ceil((_Timer / CooldownTime) * 100).ToString();
+    }
+
+    void Recharge() {
         _Timer += Time.deltaTime;
 
         if (_Timer >= CooldownTime) {
@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour {
             _CanFire = true;
         }
 
-        string text = RechargeMath().ToString();
+        string text = GetRechargeValueAsString();
         _UI.SetWeaponCooldownText(text);
     }
 
