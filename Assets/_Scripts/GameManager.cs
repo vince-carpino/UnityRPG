@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour {
     public static GameObject MainCamera;
     public static UIController UIController;
 
-    public Text TimerText;
-
     void Start() {
         MainCamera = GameObject.FindGameObjectWithTag(MainCameraTag).gameObject;
         UIController = GameObject.FindGameObjectWithTag(GameControllerTag).GetComponent<UIController>();
