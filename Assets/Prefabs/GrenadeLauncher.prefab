@@ -88,15 +88,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4753512528053359292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e20479556d17404ba2fb1dd4335f3a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f912cfce45954abf896118cccb944d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 87644735099138529, guid: 4c1c8530dca9f4d088f0a9b622ebfcf3,
-    type: 3}
-  LaunchSpeed: 5
+  ProjectilePrefab: {fileID: 0}
+  LaunchSpeed: 0
   CooldownTime: 3
   AimSpeed: 1
-  FirePoint: {fileID: 4753512529654200407}
+  FirePoint: {fileID: 0}
+  MinMaxAimDegrees: 45
 --- !u!1 &4753512529654200406
 GameObject:
   m_ObjectHideFlags: 0

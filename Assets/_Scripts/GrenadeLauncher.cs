@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour {
+public class GrenadeLauncher : MonoBehaviour {
     private bool _CanFire = true;
     private float _Timer;
     private Rigidbody _RB;
     private UIController _UI;
 
-    public GameObject ProjectilePrefab;
+    public GameObject grenadePrefab;
     public float LaunchSpeed;
     public float CooldownTime = 3f;
     public float AimSpeed = 1f;
@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour {
     public void Fire() {
         _CanFire = false;
         _Timer = 0f;
-        GameObject newProjectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
+        GameObject newProjectile = Instantiate(grenadePrefab, FirePoint.position, FirePoint.rotation);
         newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + _RB.velocity, ForceMode.Impulse);
     }
 

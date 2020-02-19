@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public Weapon Weapon;
+    public GrenadeLauncher grenadeLauncher;
 
     void Update() {
-        if (Input.GetAxis(GameManager.FireAxisName) > 0 && Weapon.CanFire()) {
-            Weapon.Fire();
+        if (Input.GetButton(GameManager.FireAxisName) && grenadeLauncher.CanFire()) {
+            grenadeLauncher.Fire();
         }
     }
 }

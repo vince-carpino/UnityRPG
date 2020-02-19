@@ -5,9 +5,11 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
 
     [SerializeField]
-    private float moveSpeed = 100;
+    private float forwardMoveSpeed = 7.5f;
     [SerializeField]
-    private float turnSpeed = 5;
+    private float backwardMoveSpeed = 3;
+    [SerializeField]
+    private float turnSpeed = 150;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();
@@ -15,18 +17,18 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        var horizontal = Input.GetAxis("Horizontal");
+        var horizontal = Input.GetAxis("Mouse X");
         var vertical = Input.GetAxis("Vertical");
 
         var movement = new Vector3(horizontal, 0, vertical);
 
-        characterController.SimpleMove(movement * Time.deltaTime * moveSpeed);
+        animator.SetFloat("Speed", vertical);
 
-        animator.SetFloat("Speed", movement.magnitude);
+        transform.Rotate(Vector3.up, horizontal * turnSpeed * Time.deltaTime);
 
-        if (movement.magnitude > 0) {
-            Quaternion newDirection = Quaternion.LookRotation(movement);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newDirection, Time.deltaTime * turnSpeed);
+        if (vertical != 0) {
+            var moveSpeedToUse = vertical > 0 ? forwardMoveSpeed : backwardMoveSpeed;
+            characterController.SimpleMove(transform.forward * moveSpeedToUse * vertical);
         }
     }
 }
