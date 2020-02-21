@@ -5,13 +5,26 @@ public class GrenadeLauncher : MonoBehaviour {
     private Rigidbody _RB;
     private UIController _UI;
 
-    public GameObject grenadePrefab;
-    public float LaunchSpeed = 1f;
-    public float CooldownTime = 3f;
-    public Transform FirePoint;
+    [SerializeField]
+    private float sensitivity = 50f;
+
+    [SerializeField]
+    private GameObject grenadePrefab;
+
+    [SerializeField]
+    private float launchSpeed = 1f;
+
+    [SerializeField]
+    private float cooldownTime = 3f;
+
+    [SerializeField]
+    private Transform firePoint;
+
+    [SerializeField]
+    private Transform cameraTransform;
 
     void Start() {
-        _Timer = CooldownTime;
+        _Timer = cooldownTime;
         _RB = GetComponent<Rigidbody>();
         _UI = GameManager.UIController;
 
@@ -25,18 +38,24 @@ public class GrenadeLauncher : MonoBehaviour {
             return;
         }
 
+        MatchCameraRotation();
+
         Recharge();
     }
 
+    void MatchCameraRotation() {
+        firePoint.transform.forward = cameraTransform.forward;
+    }
+
     string GetRechargeValueAsString() {
-        return Mathf.Ceil((_Timer / CooldownTime) * 100).ToString();
+        return Mathf.Ceil((_Timer / cooldownTime) * 100).ToString();
     }
 
     void Recharge() {
         _Timer += Time.deltaTime;
 
-        if (_Timer >= CooldownTime) {
-            _Timer = CooldownTime;
+        if (_Timer >= cooldownTime) {
+            _Timer = cooldownTime;
         }
 
         string text = GetRechargeValueAsString();
@@ -45,11 +64,11 @@ public class GrenadeLauncher : MonoBehaviour {
 
     public void Fire() {
         _Timer = 0f;
-        GameObject newProjectile = Instantiate(grenadePrefab, FirePoint.position, FirePoint.rotation);
-        newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * LaunchSpeed + _RB.velocity, ForceMode.Impulse);
+        GameObject newProjectile = Instantiate(grenadePrefab, firePoint.position, firePoint.rotation);
+        newProjectile.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * launchSpeed + _RB.velocity, ForceMode.Impulse);
     }
 
     public bool CanFire() {
-        return _Timer >= CooldownTime;
+        return _Timer >= cooldownTime;
     }
 }

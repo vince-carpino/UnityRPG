@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
     [SerializeField]
-    private float sensitivity = 50;
+    private float sensitivity = 50f;
 
     private CinemachineComposer composer;
 
