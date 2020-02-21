@@ -8,17 +8,9 @@ public class Enemy : MonoBehaviour {
     private Health targetHealth;
     private float attackTimer;
 
-    private void Awake() {
+    void Awake() {
         aggroDetection = GetComponent<AggroDetection>();
         aggroDetection.OnAggro += AggroDetection_OnAggro;
-    }
-
-    private void AggroDetection_OnAggro(Transform target) {
-        Health health = target.GetComponent<Health>();
-
-        if (health != null) {
-            targetHealth = health;
-        }
     }
 
     void Update() {
@@ -28,6 +20,14 @@ public class Enemy : MonoBehaviour {
             if (CanAttack()) {
                 Attack();
             }
+        }
+    }
+
+    private void AggroDetection_OnAggro(Transform target) {
+        Health health = target.GetComponent<Health>();
+
+        if (health != null) {
+            targetHealth = health;
         }
     }
 

@@ -7,15 +7,11 @@ public class EnemyMovement : MonoBehaviour {
     private AggroDetection aggroDetection;
     private Transform target;
 
-    private void Awake() {
+    void Awake() {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
         aggroDetection = GetComponent<AggroDetection>();
         aggroDetection.OnAggro += AggroDetection_OnAggro;
-    }
-
-    private void AggroDetection_OnAggro(Transform target) {
-        this.target = target;
     }
 
     void Update() {
@@ -24,5 +20,9 @@ public class EnemyMovement : MonoBehaviour {
             float currentSpeed = navMeshAgent.velocity.magnitude;
             animator.SetFloat("Speed", currentSpeed);
         }
+    }
+
+    private void AggroDetection_OnAggro(Transform target) {
+        this.target = target;
     }
 }

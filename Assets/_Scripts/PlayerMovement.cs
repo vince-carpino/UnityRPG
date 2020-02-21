@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    private CharacterController characterController;
-    private Animator animator;
-
     [SerializeField]
     private float forwardMoveSpeed = 7.5f;
     [SerializeField]
     private float backwardMoveSpeed = 3;
     [SerializeField]
     private float turnSpeed = 150;
+
+    private CharacterController characterController;
+    private Animator animator;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();

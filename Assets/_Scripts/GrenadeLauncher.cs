@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 
 public class GrenadeLauncher : MonoBehaviour {
-    private float _Timer;
-    private Rigidbody _RB;
-    private UIController _UI;
-
     [SerializeField]
     private float sensitivity = 50f;
 
@@ -22,6 +18,10 @@ public class GrenadeLauncher : MonoBehaviour {
 
     [SerializeField]
     private Transform cameraTransform;
+
+    private float _Timer;
+    private Rigidbody _RB;
+    private UIController _UI;
 
     void Start() {
         _Timer = cooldownTime;
@@ -43,15 +43,15 @@ public class GrenadeLauncher : MonoBehaviour {
         Recharge();
     }
 
-    void MatchCameraRotation() {
+    private void MatchCameraRotation() {
         firePoint.transform.forward = cameraTransform.forward;
     }
 
-    string GetRechargeValueAsString() {
+    private string GetRechargeValueAsString() {
         return Mathf.Ceil((_Timer / cooldownTime) * 100).ToString();
     }
 
-    void Recharge() {
+    private void Recharge() {
         _Timer += Time.deltaTime;
 
         if (_Timer >= cooldownTime) {

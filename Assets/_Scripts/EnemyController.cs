@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
-    public float Health = 100f;
+    private float Health = 100f;
 
     public void TakeDamage(float damage) {
         Health -= damage;
