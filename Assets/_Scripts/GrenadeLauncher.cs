@@ -2,10 +2,7 @@
 
 public class GrenadeLauncher : MonoBehaviour {
     [SerializeField]
-    private float sensitivity = 50f;
-
-    [SerializeField]
-    private GameObject grenadePrefab;
+    private GameObject grenadePrefab = null;
 
     [SerializeField]
     private float launchSpeed = 1f;
@@ -14,10 +11,10 @@ public class GrenadeLauncher : MonoBehaviour {
     private float cooldownTime = 3f;
 
     [SerializeField]
-    private Transform firePoint;
+    private Transform firePoint = null;
 
     [SerializeField]
-    private Transform cameraTransform;
+    private Transform cameraTransform = null;
 
     private float _Timer;
     private Rigidbody _RB;

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
     [SerializeField]
-    private Text WeaponCooldownText;
+    private Text WeaponCooldownText = null;
 
     private string PercentFormatString = "{0:0}%";
 
