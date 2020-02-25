@@ -6273,7 +6273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f912cfce45954abf896118cccb944d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 50
   grenadePrefab: {fileID: 87644735099138529, guid: 4c1c8530dca9f4d088f0a9b622ebfcf3,
     type: 3}
   launchSpeed: 5

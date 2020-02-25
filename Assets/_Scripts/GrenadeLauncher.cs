@@ -62,7 +62,7 @@ public class GrenadeLauncher : MonoBehaviour {
     public void Fire() {
         _Timer = 0f;
         GameObject newProjectile = Instantiate(grenadePrefab, firePoint.position, firePoint.rotation);
-        newProjectile.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * launchSpeed + _RB.velocity, ForceMode.Impulse);
+        newProjectile.GetComponent<Rigidbody>().AddForce(firePoint.forward * launchSpeed + _RB.velocity, ForceMode.Impulse);
     }
 
     public bool CanFire() {
