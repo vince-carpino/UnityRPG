@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
 public class CursorLock : MonoBehaviour {
+    [SerializeField]
+    private bool Enable = true;
+
     void Awake() {
-        Cursor.lockState = CursorLockMode.Locked;
+        if (Enable) {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
