@@ -31,13 +31,7 @@ public class GrenadeLauncher : MonoBehaviour {
             return;
         }
 
-        MatchCameraRotation();
-
         Recharge();
-    }
-
-    private void MatchCameraRotation() {
-        firePoint.transform.forward = cameraTransform.forward;
     }
 
     private string GetRechargeValueAsString() {
