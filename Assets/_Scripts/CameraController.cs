@@ -2,9 +2,6 @@
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-    [SerializeField]
-    private float sensitivity = 50f;
-
     private CinemachineFreeLook freeLook;
 
     void Start() {
