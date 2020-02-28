@@ -5,15 +5,19 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private float sensitivity = 50f;
 
-    private CinemachineComposer composer;
+    private CinemachineFreeLook freeLook;
 
     void Start() {
-        composer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineComposer>();
+        freeLook = GetComponent<CinemachineFreeLook>();
     }
 
     void Update() {
-        float vertical = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        composer.m_TrackedObjectOffset.y += vertical;
-        composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -10f, 10f);
+        if (Input.GetButtonDown("Fire2")) {
+            freeLook.m_Orbits[1].m_Radius /= 2f;
+        }
+
+        if (Input.GetButtonUp("Fire2")) {
+            freeLook.m_Orbits[1].m_Radius *= 2f;
+        }
     }
 }
