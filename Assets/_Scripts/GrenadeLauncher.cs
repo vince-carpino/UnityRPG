@@ -3,16 +3,12 @@
 public class GrenadeLauncher : MonoBehaviour {
     [SerializeField]
     private GameObject grenadePrefab = null;
-
     [SerializeField]
     private float launchSpeed = 1f;
-
     [SerializeField]
     private float cooldownTime = 3f;
-
     [SerializeField]
     private Transform firePoint = null;
-
     [SerializeField]
     private Transform cameraTransform = null;
 
