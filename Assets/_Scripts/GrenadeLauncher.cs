@@ -9,8 +9,6 @@ public class GrenadeLauncher : MonoBehaviour {
     private float cooldownTime = 3f;
     [SerializeField]
     private Transform firePoint = null;
-    [SerializeField]
-    private Transform cameraTransform = null;
 
     private float _Timer;
     private Rigidbody _RB;
