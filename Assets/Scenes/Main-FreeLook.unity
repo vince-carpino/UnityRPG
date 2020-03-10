@@ -7251,7 +7251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardMoveSpeed: 7.5
   backwardMoveSpeed: 3
-  leftRightMoveSpeed: 5
   turnSpeed: 50
 --- !u!114 &2032888905
 MonoBehaviour:
@@ -7297,6 +7296,7 @@ MonoBehaviour:
   launchSpeed: 5
   cooldownTime: 3
   firePoint: {fileID: 182604389}
+  cameraTransform: {fileID: 11444382}
 --- !u!54 &2032888908
 Rigidbody:
   m_ObjectHideFlags: 0
