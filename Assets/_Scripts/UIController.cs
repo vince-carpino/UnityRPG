@@ -21,4 +21,8 @@ public class UIController : MonoBehaviour {
     public void ToggleQuickMenu() {
         QuickMenu.SetActive(!QuickMenu.activeSelf);
     }
+
+    public bool IsQuickMenuActive() {
+        return QuickMenu.activeSelf;
+    }
 }
